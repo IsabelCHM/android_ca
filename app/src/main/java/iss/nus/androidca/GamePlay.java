@@ -22,6 +22,10 @@ import java.util.List;
 public class GamePlay extends AppCompatActivity {
 
     String totMatches = "/6";
+    int numberMatches = 0;
+    int timesPressed = 0;
+    int firstImagePressed = 0;
+
     public Integer[] mThumbIds = {
             R.drawable.afraid, R.drawable.full,
             R.drawable.hug, R.drawable.laugh,
@@ -35,7 +39,7 @@ public class GamePlay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
 
-        //Number of matches
+        //Number of matches to 0 at start
         TextView numMatches = findViewById(R.id.numMatches);
         if (numMatches != null)
         {
@@ -69,7 +73,7 @@ public class GamePlay extends AppCompatActivity {
         TextView Countdown = findViewById(R.id.countdown);
 
         //Countdown Timer
-        new CountDownTimer(16000, 1000) {
+        new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 if (millisUntilFinished <= 11000)
@@ -112,15 +116,60 @@ public class GamePlay extends AppCompatActivity {
 
                     ImageView imageView = (ImageView)view;
 
-//
-//                if (imageView.getDrawable() != getResources().getDrawable(R.drawable.stop))
-//                {
-//                    imageView.setImageResource(R.drawable.stop);
-//                }
-//                else if (imageView.getDrawable() == getResources().getDrawable(R.drawable.stop))
-//                {
-//                    imageView.setImageResource(R.drawable.snore);
-//                }
+                    int picId = Integer.parseInt(imageView.getTag().toString());
+                    System.out.println(picId);
+                    System.out.println(R.drawable.stop);
+
+
+                if (picId != R.drawable.stop)
+                {
+                    imageView.setImageResource(R.drawable.stop);
+                    imageView.setTag(R.drawable.stop);
+                }
+                if (picId == R.drawable.stop)
+                {
+                    timesPressed += 1;
+                    System.out.println(timesPressed);
+                    imageView.setImageResource(mThumbIds2[position]);
+                    imageView.setTag(mThumbIds2[position]);
+                }
+
+                /*
+                //Later need to edit such that this checking method is outside onClick
+                //2 images opened
+                if (timesPressed == 2)
+                {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //correct match
+                    if (picId == firstImagePressed)
+                    {
+                        TextView numMatches = findViewById(R.id.numMatches);
+                        numberMatches += 1;
+                        if (numMatches != null)
+                        {
+                            numMatches.setText(numberMatches + totMatches);
+                        }
+                    }
+                    else
+                    {
+                        imageView.setImageResource(R.drawable.stop);
+                        imageView.setTag(R.drawable.stop);
+                    }
+                    timesPressed = 0;
+                    firstImagePressed = 0;
+
+
+                }
+
+                //remembering previous image pressed
+                else if (timesPressed == 1)
+                {
+                    firstImagePressed = mThumbIds2[position];
+                }*/
 
 
                 Toast.makeText(getApplicationContext(), "Click " + mThumbIds2[position], Toast.LENGTH_SHORT).show();
