@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">android ca</string>
+    <string name="play">Let\'s Play!</string>
+    <string name="matches">Matches:</string>
 </resources>
